@@ -14,9 +14,19 @@ include /usr/share/dpkg/default.mk
 override_dh_auto_configure:
 	dh_auto_configure -- --prefix=/opt/vyatta --sysconfdir=/opt/vyatta/etc
 
+# pkg.vyatta-security-vpn.vti-only builds only vyatta-interfaces-vti-v1-yang
+# (NuDanOS 1.0: the OSPF, policy and TCP-MSS models import it). The VPN
+# itself needs python3-vici, which comes with the strongswan rewrite (1.1).
+ifneq (,$(filter pkg.vyatta-security-vpn.vti-only,$(DEB_BUILD_PROFILES)))
+override_dh_auto_test:
+
+override_dh_missing:
+	dh_missing --list-missing
+else
 # verbose output of unittest logs
 override_dh_auto_test:
 	dh_auto_test -- VERBOSE=1
+endif
 
 %:
 	dh $@ --with autoreconf,yang,vci,python3,config-package

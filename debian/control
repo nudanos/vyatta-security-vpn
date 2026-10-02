@@ -30,7 +30,7 @@ Build-Depends: debhelper-compat (= 13),
  python3-vci,
  python3-sdnotify,
  python3-pysnmp4,
- python3-vici,
+ python3-vici <!pkg.vyatta-security-vpn.vti-only>,
  vyatta-mibs-misc
 Standards-Version: 4.7.2
 Rules-Requires-Root: no
@@ -42,6 +42,7 @@ Conflicts: vyatta-cfg-vpn, vyatta-op-vpn, vyatta-op (<< 0.21)
 Replaces: vyatta-cfg-vpn, vyatta-op-vpn, vyatta-op (<< 0.21)
 Provides: vyatta-security-vpn-ipsec-feature, ${diverted-files}
 Architecture: any
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  chvrf,
  curl,
@@ -87,6 +88,7 @@ Description: Vyatta VPN configuration templates and scripts.
 
 Package: vyatta-security-vpn-ipsec-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-cfg (>= 0.117),
  vyatta-security-vpn-ipsec-feature,
@@ -99,6 +101,7 @@ Description: vyatta-security-vpn-ipsec-v1 module
 
 Package: vyatta-security-vpn-ipsec-vfp-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
@@ -108,6 +111,7 @@ Description: vyatta-security-vpn-ipsec-vfp-v1 module
 
 Package: vyatta-security-vpn-ipsec-path-monitor-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-security-vpn-ipsec-feature,
  monitord-feature-dbus (>= 6.5.0),
@@ -118,6 +122,7 @@ Description: vyatta-security-vpn-ipsec-path-monitor-v1 module
 
 Package: vyatta-security-vpn-ipsec-remote-access-server-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
@@ -127,6 +132,7 @@ Description: vyatta-security-vpn-ipsec-remote-access-server-v1 module
 
 Package: vyatta-ipsec-remote-access-server-feature
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: ${misc:Depends},
  vyatta-security-vpn-ipsec-remote-access-server-v1-yang (>= ${source:Version}),
  vyatta-op-reset-vpn-ipsec-remote-access-server-v1-yang (>= ${source:Version}),
@@ -138,6 +144,7 @@ Description: Vyatta IPsec remote access server feature flag
 
 Package: vci-security-vpn-ipsec
 Architecture: any
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
   python3,
   vyatta-security-vpn-ipsec-feature,
@@ -149,6 +156,7 @@ Description: IPsec VCI Component
 
 Package: vyatta-op-reset-vpn-ipsec-remote-access-server-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
@@ -158,6 +166,7 @@ Description: vyatta-op-reset-vpn-ipsec-remote-access-server-v1 module
 
 Package: vyatta-op-clear-vpn-x509-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
@@ -179,12 +188,14 @@ Description: vyatta-interfaces-vti-v1 module
 
 Package: vyatta-op-show-interfaces-vti-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: ${misc:Depends}, ${yang:Depends}, vyatta-interfaces-base
 Description: vyatta-op-show-interfaces-vti-v1 module
  Operational mode integration for viewing virtual interface configuration
 
 Package: vyatta-ike-sa-daemon
 Architecture: any
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Conflicts: vyatta-ipsec-trapd (<< 0.0.16)
 Replaces: vyatta-ipsec-trapd (<< 0.0.16)
 Provides: vyatta-ipsec-trapd
@@ -203,6 +214,7 @@ Description: Vyatta IKE SA management daemon
 
 Package: vyatta-op-ipsec-danos-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-security-vpn,
  ${misc:Depends},
@@ -213,6 +225,7 @@ Description: vyatta-op-ipsec-danos-v1 module
 
 Package: vyatta-op-clear-interfaces-vti-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
@@ -222,6 +235,7 @@ Description: vyatta-op-clear-interfaces-vti-v1 module
 
 Package: vyatta-op-monitor-interfaces-vti-v1-yang
 Architecture: all
+Build-Profiles: <!pkg.vyatta-security-vpn.vti-only>
 Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
