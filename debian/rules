@@ -19,14 +19,10 @@ override_dh_auto_test:
 	dh_auto_test -- VERBOSE=1
 
 %:
-	dh $@ --with=autoreconf,yang,systemd,vci,python3,config-package
+	dh $@ --with autoreconf,yang,vci,python3,config-package
 
-override_dh_systemd_enable:
-	dh_systemd_enable --name=vyatta-ipsec-rekey
-	dh_systemd_enable --name=vyatta-ike-sa-daemon
-	dh_systemd_enable --name=vyatta-strongswan-starter
+override_dh_installsystemd:
+	dh_installsystemd --name=vyatta-ipsec-rekey --no-start
+	dh_installsystemd --name=vyatta-ike-sa-daemon --no-start
+	dh_installsystemd --name=vyatta-strongswan-starter --no-start
 
-override_dh_systemd_start:
-	dh_systemd_start --no-start --name=vyatta-ipsec-rekey
-	dh_systemd_start --no-start --name=vyatta-ike-sa-daemon
-	dh_systemd_start --no-start --name=vyatta-strongswan-starter

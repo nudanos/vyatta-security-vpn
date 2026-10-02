@@ -1,13 +1,10 @@
 Source: vyatta-security-vpn
 Section: net
 Priority: optional
-Maintainer: Vyatta Package Maintainers <DL-vyatta-help@att.com>
-Build-Depends:
+Maintainer: NuDanOS Maintainers <jon@fernandez.tech>
+Build-Depends: debhelper-compat (= 13),
  cpio,
  config-package-dev,
- debhelper (>= 9),
- debhelper (>= 9.20160709) | dh-systemd,
- debhelper (>= 9.20160403~) | dh-autoreconf,
  dh-python,
  dh-yang,
  dh-vci,
@@ -25,7 +22,7 @@ Build-Depends:
  libperl-critic-perl,
  netbase,
  perl (>= 5.8.9),
- pylint3,
+ pylint,
  python3,
  python3-dbus,
  python3-gi,
@@ -35,14 +32,17 @@ Build-Depends:
  python3-pysnmp4,
  python3-vici,
  vyatta-mibs-misc
-Standards-Version: 3.9.6
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+Vcs-Git: https://github.com/nudanos/vyatta-security-vpn.git
+Vcs-Browser: https://github.com/nudanos/vyatta-security-vpn
 
 Package: vyatta-security-vpn
 Conflicts: vyatta-cfg-vpn, vyatta-op-vpn, vyatta-op (<< 0.21)
 Replaces: vyatta-cfg-vpn, vyatta-op-vpn, vyatta-op (<< 0.21)
 Provides: vyatta-security-vpn-ipsec-feature, ${diverted-files}
 Architecture: any
-Depends:
+Depends: 
  chvrf,
  curl,
  iproute2 (>= 3.16.0),
@@ -75,7 +75,7 @@ Depends:
  ${perl:Depends},
  ${shlibs:Depends},
  libvyatta-dataplane-proto-support
-Suggests:
+Suggests: 
  ethtool,
  ncurses-bin (>= 5.5-5),
  net-tools,
@@ -87,7 +87,7 @@ Description: Vyatta VPN configuration templates and scripts.
 
 Package: vyatta-security-vpn-ipsec-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-cfg (>= 0.117),
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
@@ -99,7 +99,7 @@ Description: vyatta-security-vpn-ipsec-v1 module
 
 Package: vyatta-security-vpn-ipsec-vfp-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
  ${yang:Depends}
@@ -108,7 +108,7 @@ Description: vyatta-security-vpn-ipsec-vfp-v1 module
 
 Package: vyatta-security-vpn-ipsec-path-monitor-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-security-vpn-ipsec-feature,
  monitord-feature-dbus (>= 6.5.0),
  ${misc:Depends},
@@ -118,7 +118,7 @@ Description: vyatta-security-vpn-ipsec-path-monitor-v1 module
 
 Package: vyatta-security-vpn-ipsec-remote-access-server-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
  ${yang:Depends}
@@ -132,14 +132,13 @@ Depends: ${misc:Depends},
  vyatta-op-reset-vpn-ipsec-remote-access-server-v1-yang (>= ${source:Version}),
  vyatta-op-clear-vpn-x509-v1-yang (>= ${source:Version}),
  vyatta-security-vpn-ipsec-feature
-Section: contrib/net
-Priority: optional
+Section: net
 Description: Vyatta IPsec remote access server feature flag
  The feature flag for the IPsec remote access server feature
 
 Package: vci-security-vpn-ipsec
 Architecture: any
-Depends:
+Depends: 
   python3,
   vyatta-security-vpn-ipsec-feature,
   ${shlibs:Depends},
@@ -150,7 +149,7 @@ Description: IPsec VCI Component
 
 Package: vyatta-op-reset-vpn-ipsec-remote-access-server-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
  ${yang:Depends}
@@ -159,7 +158,7 @@ Description: vyatta-op-reset-vpn-ipsec-remote-access-server-v1 module
 
 Package: vyatta-op-clear-vpn-x509-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
  ${yang:Depends}
@@ -168,7 +167,7 @@ Description: vyatta-op-clear-vpn-x509-v1 module
 
 Package: vyatta-interfaces-vti-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-cfg (>= 0.117),
  vyatta-interfaces,
  ${misc:Depends},
@@ -189,7 +188,7 @@ Architecture: any
 Conflicts: vyatta-ipsec-trapd (<< 0.0.16)
 Replaces: vyatta-ipsec-trapd (<< 0.0.16)
 Provides: vyatta-ipsec-trapd
-Depends:
+Depends: 
   python3,
   python3-dbus,
   python3-gi,
@@ -204,7 +203,7 @@ Description: Vyatta IKE SA management daemon
 
 Package: vyatta-op-ipsec-danos-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-security-vpn,
  ${misc:Depends},
  ${yang:Depends}
@@ -214,7 +213,7 @@ Description: vyatta-op-ipsec-danos-v1 module
 
 Package: vyatta-op-clear-interfaces-vti-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
  ${yang:Depends}
@@ -223,7 +222,7 @@ Description: vyatta-op-clear-interfaces-vti-v1 module
 
 Package: vyatta-op-monitor-interfaces-vti-v1-yang
 Architecture: all
-Depends:
+Depends: 
  vyatta-security-vpn-ipsec-feature,
  ${misc:Depends},
  ${yang:Depends}
