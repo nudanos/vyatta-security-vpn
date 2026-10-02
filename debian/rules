@@ -22,6 +22,9 @@ override_dh_auto_test:
 
 override_dh_missing:
 	dh_missing --list-missing
+
+override_dh_auto_install:
+	dh_auto_install -- VTI_ONLY=1
 else
 # verbose output of unittest logs
 override_dh_auto_test:

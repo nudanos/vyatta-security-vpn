@@ -50,6 +50,8 @@ logrotate_DATA = etc/logrotate.d/vyatta-ipsec-logs
 cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
   cpio -0pd
 
+# VTI_ONLY=1 (debian/rules, NuDanOS 1.0 VTI-only build) skips the IKE SA
+# daemon's SNMP MIB, which only the VPN uses.
 install-exec-hook:
 	mkdir -p $(DESTDIR)/etc/ppp/ip-up.d
 	mkdir -p $(DESTDIR)/etc/ppp/ip-down.d
@@ -69,14 +71,16 @@ install-exec-hook:
 	cd templates && $(cpiop) $(DESTDIR)$(opdir)
 	mkdir -p $(DESTDIR)$(techsprtdir)
 	cp scripts/1900-vyatta-vpn-ipsec $(DESTDIR)$(techsprtdir)
-	mkdir -p $(DESTDIR)/$(pysnmp_mibdir)
-	cp $(snmp_mibdir)/SNMPv2-SMI.txt mibs/
-	cp $(snmp_mibdir)/BROCADE-REG-MIB.txt mibs/
+	if [ -z "$(VTI_ONLY)" ]; then \
+	mkdir -p $(DESTDIR)/$(pysnmp_mibdir) && \
+	cp $(snmp_mibdir)/SNMPv2-SMI.txt mibs/ && \
+	cp $(snmp_mibdir)/BROCADE-REG-MIB.txt mibs/ && \
 	mibdump --mib-borrower=/usr/share/snmp/mibs/ \
 		--destination-directory=$(DESTDIR)/$(pysnmp_mibdir) \
-	       	--mib-source=file:./mibs/ BROCADE-IPSEC-MIB
-	rm -rf $(DESTDIR)/$(pysnmp_mibdir)/__pycache__/
-	sed -i '/^#/d' $(DESTDIR)/$(pysnmp_mibdir)/*.py
+	       	--mib-source=file:./mibs/ BROCADE-IPSEC-MIB && \
+	rm -rf $(DESTDIR)/$(pysnmp_mibdir)/__pycache__/ && \
+	sed -i '/^#/d' $(DESTDIR)/$(pysnmp_mibdir)/*.py; \
+	fi
 
 coverage:
 	cover -t -make 'prove -r tests;'
